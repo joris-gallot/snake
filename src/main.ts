@@ -5,9 +5,13 @@ import { startGame } from './game.ts'
 
 const gameCtx = setupGame(document.getElementById('app')!);
 
-document.addEventListener('keydown', () => {
-  if (!gameCtx || gameCtx.started) return;
+const validKeys = ['Enter', ' ', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+
+document.addEventListener('keydown', (e: KeyboardEvent) => {
+  if (!validKeys.includes(e.key)) return;
 
   startGame(gameCtx);
+}, {
+  once: true
 })
 

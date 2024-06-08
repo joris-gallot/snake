@@ -36,7 +36,6 @@ export function setupGame(element: HTMLElement): GameContext {
     snake,
     grid,
     gridSize: GRID_SIZE,
-    started: false,
   }
 
   updateGrid(gameContext);

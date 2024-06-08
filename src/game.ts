@@ -40,7 +40,6 @@ export function updateGrid(ctx: GameContext) {
 }
 
 export function startGame(ctx: GameContext) {
-  ctx.started = true;
   document.addEventListener('keydown', onKeydown(ctx))
 
   setInterval(() => {
