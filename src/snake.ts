@@ -16,7 +16,7 @@ class SnakeChild {
   get x() {
     return this._x;
   }
-  
+
   get y() {
     return this._y;
   }
@@ -82,12 +82,12 @@ class Snake extends SnakeChild {
   public getChildrenPositions() {
     const positions = [];
     let currentSnake = this;
-  
+
     while (currentSnake) {
       positions.push({ x: currentSnake.x, y: currentSnake.y });
       currentSnake = currentSnake.child;
     }
-  
+
     return positions;
   }
 }

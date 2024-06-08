@@ -16,7 +16,7 @@ function setupGrid(element: HTMLElement, gridSize: number) {
     const x = i % gridSize;
     const y = Math.floor(i / gridSize);
     cell.id = `cell-${x}-${y}`;
-    
+
     cell.style.border = '1px solid darkgreen';
     cell.style.backgroundColor = 'lightgreen';
     grid.appendChild(cell);
@@ -35,5 +35,5 @@ export function setupGame(element: HTMLElement): GameContext {
     snake,
     grid,
     gridSize: GRID_SIZE
-  } 
+  }
 }

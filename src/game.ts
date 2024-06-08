@@ -16,12 +16,12 @@ function onKeydown(ctx: GameContext) {
     if (ctx.snake.direction === 'up' && key === 'down') return;
     if (ctx.snake.direction === 'right' && key === 'left') return;
     if (ctx.snake.direction === 'left' && key === 'right') return;
-  
+
     ctx.snake.direction = key;
   }
 }
 
-function updateGrid(ctx: GameContext)  {
+function updateGrid(ctx: GameContext) {
   const { snake, grid } = ctx;
 
   const childrenPos = snake.getChildrenPositions();
