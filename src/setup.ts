@@ -55,12 +55,12 @@ class SnakeChild {
 
 class Snake extends SnakeChild {
   private _direction: SnakeDirection;
-  private limit: number;
+  private _limit: number;
 
   constructor(x: number, y: number, limit: number) {
     super(x, y);
     this._direction = 'down';
-    this.limit = limit;
+    this._limit = limit;
   }
 
   get direction() {
@@ -76,16 +76,16 @@ class Snake extends SnakeChild {
 
     switch (this._direction) {
       case 'up':
-        this._y = this._y === 1 ? this.limit : this._y - 1;
+        this._y = this._y === 0 ? this._limit : this._y - 1;
         break;
       case 'down':
-        this._y = this._y === this.limit ? 1 : this._y + 1;
+        this._y = this._y === this._limit ? 0 : this._y + 1;
         break;
       case 'left':
-        this._x = this._x === 1 ? this.limit : this._x - 1;
+        this._x = this._x === 0 ? this._limit : this._x - 1;
         break;
       case 'right':
-        this._x = this._x === this.limit ? 1 : this._x + 1;
+        this._x = this._x === this._limit ? 0 : this._x + 1;
         break;
     }
 
@@ -109,7 +109,7 @@ function setupGrid(element: HTMLElement, gridSize: number) {
 
     const x = i % gridSize;
     const y = Math.floor(i / gridSize);
-    cell.id = `cell-${x+1}-${y+1}`;
+    cell.id = `cell-${x}-${y}`;
     
     cell.style.border = '1px solid darkgreen';
     cell.style.backgroundColor = 'lightgreen';
@@ -154,7 +154,7 @@ export function setupGame(element: HTMLElement): GameContext {
   const grid = setupGrid(element, GRID_SIZE);
 
   return {
-    snake: new Snake(1, 3, GRID_SIZE),
+    snake: new Snake(0, 3, GRID_SIZE),
     grid,
     gridSize: GRID_SIZE
   } 
@@ -174,8 +174,8 @@ function onKeydown(ctx: GameContext) {
   }
 }
 export function startGame(ctx: GameContext) {
-  ctx.snake.child = new SnakeChild(1, 2);
-  ctx.snake.child.child = new SnakeChild(1, 1);
+  ctx.snake.child = new SnakeChild(0, 2);
+  ctx.snake.child.child = new SnakeChild(0, 1);
   
   updateGrid(ctx);
 
