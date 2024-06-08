@@ -83,7 +83,7 @@ export class Snake extends SnakeChild {
 
   public getChildrenPositions() {
     const positions = [];
-    let currentSnake: SnakeChild | null = this;
+    let currentSnake: SnakeChild | null = this._child;
 
     while (currentSnake) {
       positions.push({ x: currentSnake.x, y: currentSnake.y });
