@@ -21,7 +21,7 @@ function onKeydown(ctx: GameContext) {
   }
 }
 
-function updateGrid(ctx: GameContext) {
+export function updateGrid(ctx: GameContext) {
   const { snake, grid } = ctx;
 
   const childrenPos = snake.getChildrenPositions();
@@ -40,9 +40,8 @@ function updateGrid(ctx: GameContext) {
 }
 
 export function startGame(ctx: GameContext) {
+  ctx.started = true;
   document.addEventListener('keydown', onKeydown(ctx))
-
-  updateGrid(ctx);
 
   setInterval(() => {
     ctx.snake.move();

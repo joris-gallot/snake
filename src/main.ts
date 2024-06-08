@@ -5,4 +5,9 @@ import { startGame } from './game.ts'
 
 const gameCtx = setupGame(document.getElementById('app')!);
 
-startGame(gameCtx);
+document.addEventListener('keydown', () => {
+  if (!gameCtx || gameCtx.started) return;
+
+  startGame(gameCtx);
+})
+

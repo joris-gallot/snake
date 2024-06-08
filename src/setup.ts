@@ -1,5 +1,6 @@
 import type { GameContext } from './types';
 import { newSnake } from './snake';
+import { updateGrid } from './game';
 
 function setupGrid({ size, element }: { element: HTMLElement, size: number }) {
   const grid = document.createElement('div');
@@ -29,11 +30,16 @@ export function setupGame(element: HTMLElement): GameContext {
   const GRID_SIZE = 16;
   const grid = setupGrid({ element, size: GRID_SIZE });
 
-  const snake = newSnake({ size: 12, limit: GRID_SIZE })
+  const snake = newSnake({ size: 4, limit: GRID_SIZE - 1 })
 
-  return {
+  const gameContext: GameContext = {
     snake,
     grid,
-    gridSize: GRID_SIZE
+    gridSize: GRID_SIZE,
+    started: false,
   }
+
+  updateGrid(gameContext);
+
+  return gameContext
 }
