@@ -92,8 +92,8 @@ class Snake extends SnakeChild {
   }
 }
 
-export function newSnake(size: number, limitGrid: number) {
-  let snake = new Snake(0, 2, 16);
+export function newSnake({ size, limitGrid }: { size: number, limit: number }) {
+  let snake = new Snake(0, 2, limit);
   let currentSnake = snake;
 
   for (let i = 0; i < size - 1; i++) {
