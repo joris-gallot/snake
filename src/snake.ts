@@ -11,10 +11,6 @@ class SnakeChild {
     this._child = null;
   }
 
-  set child(child: SnakeChild) {
-    this._child = child;
-  }
-
   get x() {
     return this._x;
   }
@@ -23,11 +19,15 @@ class SnakeChild {
     return this._y;
   }
 
+  set child(child: SnakeChild) {
+    this._child = child;
+  }
+
   get child(): SnakeChild | null {
     return this._child;
   }
 
-  move(x: number, y: number) {
+  public move(x: number, y: number) {
     const currentPos = { x: this._x, y: this._y };
 
     this._x = x;
@@ -56,6 +56,27 @@ export class Snake extends SnakeChild {
 
   set direction(dir: SnakeDirection) {
     this._direction = dir;
+  }
+
+  public grow() {
+    let currentSnake: SnakeChild | null = this;
+
+    while (currentSnake.child) {
+      currentSnake = currentSnake.child;
+    }
+
+    const child = new SnakeChild(currentSnake.x, currentSnake.y);
+    currentSnake.child = child;
+  }
+
+  public isAt(x: number, y: number) {
+    if (this._x === x && this._y === y) {
+      return true;
+    }
+
+    const positions = this.getChildrenPositions();
+
+    return positions.some(({ x: posX, y: posY }) => posX === x && posY === y);
   }
 
   public move() {

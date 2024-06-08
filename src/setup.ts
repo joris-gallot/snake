@@ -1,6 +1,6 @@
 import type { GameContext } from './types';
 import { newSnake } from './snake';
-import { updateGrid } from './game';
+import { generateFood, updateGrid } from './game';
 
 function setupGrid({ size, element }: { element: HTMLElement, size: number }) {
   const grid = document.createElement('div');
@@ -38,6 +38,7 @@ export function setupGame(element: HTMLElement): GameContext {
     gridSize: GRID_SIZE,
   }
 
+  generateFood(gameContext);
   updateGrid(gameContext);
 
   return gameContext

@@ -31,3 +31,8 @@ body {
 [data-snake="head"] {
   background-color: gray !important;
 }
+
+
+[data-food="true"] {
+  background-color: red !important;
+}
