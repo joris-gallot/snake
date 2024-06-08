@@ -24,12 +24,12 @@ function onKeydown(ctx: GameContext) {
 function updateGrid(ctx: GameContext)  {
   const { snake, grid } = ctx;
 
-  const snakeWithChildrenPos = snake.getChildrenPositions();
+  const childrenPos = snake.getChildrenPositions();
 
   Array.from(grid.children).forEach((cell) => {
     cell.dataset.snake = 'false';
 
-    if (snakeWithChildrenPos.some(({ x, y }) => cell.id === `cell-${x}-${y}`)) {
+    if (childrenPos.some(({ x, y }) => cell.id === `cell-${x}-${y}`)) {
       cell.dataset.snake = 'true';
     }
 
