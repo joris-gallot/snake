@@ -55,10 +55,12 @@ class SnakeChild {
 
 class Snake extends SnakeChild {
   private _direction: SnakeDirection;
+  private limit: number;
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, limit: number) {
     super(x, y);
     this._direction = 'down';
+    this.limit = limit;
   }
 
   get direction() {
@@ -69,21 +71,21 @@ class Snake extends SnakeChild {
     this._direction = dir;
   }
 
-  move(start: number, end: number) {
+  move() {
     const currentPos = { x: this._x, y: this._y };
 
     switch (this._direction) {
       case 'up':
-        this._y = this._y === start ? end : this._y - 1;
+        this._y = this._y === 1 ? this.limit : this._y - 1;
         break;
       case 'down':
-        this._y = this._y === end ? 1 : this._y + 1;
+        this._y = this._y === this.limit ? 1 : this._y + 1;
         break;
       case 'left':
-        this._x = this._x === start ? end : this._x - 1;
+        this._x = this._x === 1 ? this.limit : this._x - 1;
         break;
       case 'right':
-        this._x = this._x === end ? 1 : this._x + 1;
+        this._x = this._x === this.limit ? 1 : this._x + 1;
         break;
     }
 
@@ -152,7 +154,7 @@ export function setupGame(element: HTMLElement): GameContext {
   const grid = setupGrid(element, GRID_SIZE);
 
   return {
-    snake: new Snake(1, 3),
+    snake: new Snake(1, 3, GRID_SIZE),
     grid,
     gridSize: GRID_SIZE
   } 
@@ -180,7 +182,7 @@ export function startGame(ctx: GameContext) {
   document.addEventListener('keydown', onKeydown(ctx))
 
   setInterval(() => {
-    ctx.snake.move(1, ctx.gridSize);
+    ctx.snake.move();
     updateGrid(ctx);
   }, 150);
 } 
