@@ -1,11 +1,11 @@
-import type { GameContext } from './types';
+import type { GameContext, SnakeDirection } from './types';
 
-const KEY_DIRECTION_MAP = {
+const KEY_DIRECTION_MAP: Record<string, SnakeDirection> = {
   ArrowUp: 'up',
   ArrowDown: 'down',
   ArrowLeft: 'left',
   ArrowRight: 'right',
-} as const satisfies Record<string, SnakeDirection>
+}
 
 function onKeydown(ctx: GameContext) {
   return (e: KeyboardEvent) => {
@@ -26,7 +26,7 @@ function updateGrid(ctx: GameContext) {
 
   const childrenPos = snake.getChildrenPositions();
 
-  Array.from(grid.children).forEach((cell) => {
+  (Array.from(grid.children) as HTMLDivElement[]).forEach((cell) => {
     cell.dataset.snake = 'false';
 
     if (childrenPos.some(({ x, y }) => cell.id === `cell-${x}-${y}`)) {

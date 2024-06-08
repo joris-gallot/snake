@@ -1,3 +1,5 @@
+import { SnakeDirection } from "./types";
+
 class SnakeChild {
   protected _x: number;
   protected _y: number;
@@ -38,7 +40,7 @@ class SnakeChild {
 
 }
 
-class Snake extends SnakeChild {
+export class Snake extends SnakeChild {
   private _direction: SnakeDirection;
   private _limit: number;
 
@@ -81,7 +83,7 @@ class Snake extends SnakeChild {
 
   public getChildrenPositions() {
     const positions = [];
-    let currentSnake = this;
+    let currentSnake: SnakeChild | null = this;
 
     while (currentSnake) {
       positions.push({ x: currentSnake.x, y: currentSnake.y });
@@ -92,9 +94,9 @@ class Snake extends SnakeChild {
   }
 }
 
-export function newSnake({ size, limitGrid }: { size: number, limit: number }) {
-  let snake = new Snake(0, 2, limit);
-  let currentSnake = snake;
+export function newSnake({ size, limit }: { size: number, limit: number }) {
+  let snake = new Snake(0, size - 1, limit);
+  let currentSnake: SnakeChild = snake;
 
   for (let i = 0; i < size - 1; i++) {
     const child = new SnakeChild(currentSnake.x, currentSnake.y - 1);
