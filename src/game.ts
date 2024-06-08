@@ -43,6 +43,11 @@ export function updateGrid(ctx: GameContext) {
 
   const childrenPos = snake.getChildrenPositions();
 
+  if (childrenPos.some(({ x, y }) => x === snake.x && y === snake.y)) {
+    ctx.gameOver = true;
+    return
+  }
+
   (Array.from(grid.children) as HTMLDivElement[]).forEach((cell) => {
     delete cell.dataset.snake
 
@@ -65,7 +70,15 @@ export function updateGrid(ctx: GameContext) {
 export function startGame(ctx: GameContext) {
   document.addEventListener('keydown', onKeydown(ctx))
 
-  setInterval(() => {
+  const intervalId = setInterval(() => {
+    if (ctx.gameOver) {
+      clearInterval(intervalId);
+
+      alert('Game Over');
+      location.reload();
+      return;
+    }
+
     ctx.snake.move();
     updateGrid(ctx);
   }, 150);
