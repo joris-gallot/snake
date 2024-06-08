@@ -153,8 +153,12 @@ export function setupGame(element: HTMLElement): GameContext {
   const GRID_SIZE = 16;
   const grid = setupGrid(element, GRID_SIZE);
 
+  const snake= new Snake(0, 2, GRID_SIZE);
+  snake.child = new SnakeChild(snake.x, snake.y - 1);
+  snake.child.child = new SnakeChild(snake.x, snake.child.y - 1);
+
   return {
-    snake: new Snake(0, 3, GRID_SIZE),
+    snake,
     grid,
     gridSize: GRID_SIZE
   } 
@@ -173,13 +177,11 @@ function onKeydown(ctx: GameContext) {
     ctx.snake.direction = key;
   }
 }
-export function startGame(ctx: GameContext) {
-  ctx.snake.child = new SnakeChild(0, 2);
-  ctx.snake.child.child = new SnakeChild(0, 1);
-  
-  updateGrid(ctx);
 
+export function startGame(ctx: GameContext) {
   document.addEventListener('keydown', onKeydown(ctx))
+
+  updateGrid(ctx);
 
   setInterval(() => {
     ctx.snake.move();
