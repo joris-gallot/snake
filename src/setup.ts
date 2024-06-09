@@ -4,22 +4,24 @@ import { generateFood, updateGrid } from './game';
 
 function setupGrid({ size, element }: { element: HTMLElement, size: number }) {
   const grid = document.createElement('div');
-  grid.id = 'game-grid';
-  grid.style.display = 'grid';
-  grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-  grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
-  grid.style.width = '700px';
-  grid.style.height = '700px';
+  grid.classList.add('snake-grid');
+  grid.style.setProperty('--grid-size', size.toString());
 
   for (let i = 0; i < size * size; i++) {
     const cell = document.createElement('div');
 
     const x = i % size;
     const y = Math.floor(i / size);
-    cell.id = `cell-${x}-${y}`;
 
-    cell.style.border = '1px solid darkgreen';
-    cell.style.backgroundColor = 'lightgreen';
+    cell.dataset.x = x.toString();
+    cell.dataset.y = y.toString();
+
+    cell.classList.add('cell');
+
+    if ((x + y) % 2 === 0) {
+      cell.classList.add('even');
+    }
+
     grid.appendChild(cell);
   }
 

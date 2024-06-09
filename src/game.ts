@@ -34,7 +34,7 @@ export function generateFood(ctx: GameContext) {
     y = Math.floor(Math.random() * gridSize);
   } while (snake.isAt(x, y));
 
-  const food = document.getElementById(`cell-${x}-${y}`)!;
+  const food = document.querySelector<HTMLDivElement>(`[data-x="${x}"][data-y="${y}"]`)!;
   food.dataset.food = 'true';
 }
 
@@ -51,11 +51,14 @@ export function updateGrid(ctx: GameContext) {
   (Array.from(grid.children) as HTMLDivElement[]).forEach((cell) => {
     delete cell.dataset.snake
 
-    if (childrenPos.some(({ x, y }) => cell.id === `cell-${x}-${y}`)) {
-      cell.dataset.snake = 'true';
+    const cellX = Number(cell.dataset.x);
+    const cellY = Number(cell.dataset.y);
+
+    if (childrenPos.some(({ x, y }) => cellX === x && cellY === y)) {
+      cell.dataset.snake = 'body';
     }
 
-    if (cell.id === `cell-${snake.x}-${snake.y}`) {
+    if (cellX === snake.x && cellY === snake.y) {
       cell.dataset.snake = 'head';
 
       if (cell.dataset.food === 'true') {
