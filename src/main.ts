@@ -7,11 +7,12 @@ const gameCtx = setupGame(document.getElementById('app')!);
 
 const validKeys = ['Enter', ' ', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 
-document.addEventListener('keydown', (e: KeyboardEvent) => {
+function onKeydown(e: KeyboardEvent) {
   if (!validKeys.includes(e.key)) return;
 
   startGame(gameCtx);
-}, {
-  once: true
-})
+  document.removeEventListener('keydown', onKeydown);
+}
+
+document.addEventListener('keydown', onKeydown);
 
