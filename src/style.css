@@ -39,15 +39,80 @@ body {
     }
     
     &[data-snake="body"] {
-      background-color: darkgray;
+      background-size: contain;
+
+      &[data-direction="up"], &[data-direction="down"] {
+        background-image: url('assets/body_vertical.png');
+      }
+
+      &[data-direction="left"], &[data-direction="right"] {
+        background-image: url('assets/body_horizontal.png');
+      }
+
+      &[data-from-direction="up"][data-to-direction="left"],
+      &[data-from-direction="left"][data-to-direction="up"] {
+        background-image: url('assets/body_topleft.png');
+      }
+
+      &[data-from-direction="up"][data-to-direction="right"],
+      &[data-from-direction="right"][data-to-direction="up"] {
+        background-image: url('assets/body_topright.png');
+      }
+
+      &[data-from-direction="down"][data-to-direction="left"],
+      &[data-from-direction="left"][data-to-direction="down"]{
+        background-image: url('assets/body_bottomleft.png');
+      }
+
+      &[data-from-direction="down"][data-to-direction="right"],
+      &[data-from-direction="right"][data-to-direction="down"]{
+        background-image: url('assets/body_bottomright.png');
+      }
     }
 
     &[data-snake="head"] {
-      background-color: gray;
+      background-size: contain;
+
+      &[data-direction="up"] {
+        background-image: url('assets/head_up.png');
+      }
+
+      &[data-direction="down"] {
+        background-image: url('assets/head_down.png');
+      }
+
+      &[data-direction="left"] {
+        background-image: url('assets/head_left.png');
+      }
+
+      &[data-direction="right"] {
+        background-image: url('assets/head_right.png');
+      }
+    }
+
+    &[data-snake="tail"] {
+      background-size: contain;
+
+      &[data-direction="up"] {
+        background-image: url('assets/tail_down.png');
+      }
+
+      &[data-direction="down"] {
+        background-image: url('assets/tail_up.png');
+      }
+
+      &[data-direction="left"] {
+        background-image: url('assets/tail_right.png');
+      }
+
+      &[data-direction="right"] {
+        background-image: url('assets/tail_left.png');
+      }
     }
 
     &[data-food="true"] {
-      background-color: red;
+      background-image: url('assets/apple.svg');
+      background-size: contain;
     }
   }
 }

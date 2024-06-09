@@ -4,11 +4,13 @@ class SnakeChild {
   protected _x: number;
   protected _y: number;
   protected _child: SnakeChild | null;
+  protected _direction: SnakeDirection;
 
   constructor(x: number, y: number) {
     this._x = x;
     this._y = y;
     this._child = null;
+    this._direction = 'down';
   }
 
   get x() {
@@ -19,6 +21,14 @@ class SnakeChild {
     return this._y;
   }
 
+  get direction() {
+    return this._direction;
+  }
+
+  set direction(dir: SnakeDirection) {
+    this._direction = dir;
+  }
+
   set child(child: SnakeChild) {
     this._child = child;
   }
@@ -27,35 +37,26 @@ class SnakeChild {
     return this._child;
   }
 
-  public move(x: number, y: number) {
-    const currentPos = { x: this._x, y: this._y };
+  public move({ x, y, direction }: { x: number, y: number, direction: SnakeDirection }) {
+    const currentPos = { x: this._x, y: this._y, direction: this._direction };
 
     this._x = x;
     this._y = y;
+    this._direction = direction;
 
     if (this._child) {
-      this._child.move(currentPos.x, currentPos.y);
+      this._child.move(currentPos);
     }
   }
 
 }
 
 export class Snake extends SnakeChild {
-  private _direction: SnakeDirection;
   private _limit: number;
 
   constructor(x: number, y: number, limit: number) {
     super(x, y);
-    this._direction = 'down';
     this._limit = limit;
-  }
-
-  get direction() {
-    return this._direction;
-  }
-
-  set direction(dir: SnakeDirection) {
-    this._direction = dir;
   }
 
   public grow() {
@@ -80,7 +81,7 @@ export class Snake extends SnakeChild {
   }
 
   public move() {
-    const currentPos = { x: this._x, y: this._y };
+    const currentPos = { x: this._x, y: this._y, direction: this._direction };
 
     switch (this._direction) {
       case 'up':
@@ -98,16 +99,16 @@ export class Snake extends SnakeChild {
     }
 
     if (this._child) {
-      this._child.move(currentPos.x, currentPos.y);
+      this._child.move(currentPos);
     }
   }
 
   public getChildrenPositions() {
-    const positions = [];
+    const positions: Array<{ x: number, y: number, direction: SnakeDirection }> = [];
     let currentSnake: SnakeChild | null = this._child;
 
     while (currentSnake) {
-      positions.push({ x: currentSnake.x, y: currentSnake.y });
+      positions.push({ x: currentSnake.x, y: currentSnake.y, direction: currentSnake.direction });
       currentSnake = currentSnake.child;
     }
 
